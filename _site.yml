@@ -1,20 +1,17 @@
-name: "my-website"
+name: "RoughNotebook"
 navbar:
-  title: "My Website"
+  title: "雑記帳"
   left:
     - text: "Home"
+      icon: fa-home
       href: index.html
     - text: "About"
+      icon: fa-coffee
       href: about.html
+  right: NULL
 output:
   html_document:
-    theme: cosmo
-    highlight: textmate
-    toc: true
-    toc_float:
-      collapse: false
-    df_print: "kable"
-    include:
-#      after_body: footer.html
-#    css: site_style.css
+    theme: "cosmo" #"cerulean", "journal", "flatly", "readable", "spacelab", "united", and "cosmo"
+    toc: FALSE
+    toc_depth: 2
 output_dir: "docs"
