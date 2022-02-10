@@ -5,6 +5,12 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
+    - text: "Post"
+      icon: fa-pen
+      menu:
+        - text: "Math"
+        - text: "3元集合の位相構造"
+          href: topology.html
     - text: "About"
       icon: fa-coffee
       href: about.html

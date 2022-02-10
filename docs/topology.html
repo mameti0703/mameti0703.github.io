@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>3元集合の位相構造</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">雑記帳</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-pen"></span>
+     
+    Post
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Math</li>
+    <li>
+      <a href="topology.html">3元集合の位相構造</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-coffee"></span>
+     
+    About
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">3元集合の位相構造</h1>
+
+</div>
+
+
+<p><strong>位相空間</strong>とは、<strong>位相</strong>とはなんだろうか。 具体例を通じて少し理解が深まった気がするのでメモ。 なお、この記事は下記リンクを参考にした。</p>
+<p><a href="https://www.mathwills.com/posts/108">@norkronさんの投稿</a></p>
+<p><br><br><br></p>
+<div id="元集合の位相の数" class="section level1">
+<h1>3元集合の位相の数</h1>
+<p>3つの要素をもつ集合、<span class="math inline">\(X=\{a,b,c\}\)</span>を考える。 まず前提として、<span class="math inline">\(X\)</span>に定まる位相は1つではない。</p>
+<p>例えば、<span class="math inline">\(\mathcal O_1=\{\ \emptyset,X\ \}\)</span>は<strong>自明な位相</strong>と呼ばれる位相だし、 <span class="math inline">\(\mathcal O_2=\{\ \emptyset,\{a\},X\ \}\)</span>も位相空間の公理を満たすため位相となる。</p>
+<p>一方、<span class="math inline">\(\mathcal N=\{\ \emptyset,\{a\},\{b\},X\ \}\)</span>は位相にならない。<span class="math inline">\(\{a\}\)</span>と<span class="math inline">\(\{b\}\)</span>の和集合が<span class="math inline">\(\mathcal N\)</span>に含まれないため、位相空間の公理を満たさないからだ。</p>
+<p>では、<span class="math inline">\(X\)</span>にはいくつの位相が定められるだろうか。 結論から言うと、3元集合には29通りの位相が考えられる。 さらに、位相同型なものを同じとすれば、<strong><u>3元集合には9通りの同型でない位相が定められる</u></strong>。</p>
+<p>実際に9通りの位相を列挙すると以下のようになる。</p>
+<ol style="list-style-type: decimal">
+<li>　<span class="math inline">\(\mathcal O_{1}=\left\{\ \emptyset,\ X \ \right\}\)</span>（密着位相）</li>
+<li>　<span class="math inline">\(\mathcal O_{2}=\left\{\ \emptyset,\ \left\{ a \right\},\ X\ \right\}\)</span></li>
+<li>　<span class="math inline">\(\mathcal O_{3}=\left\{\ \emptyset,\ \left\{ a,b \right\},\ X\ \right\}\)</span></li>
+<li>　<span class="math inline">\(\mathcal O_{4}=\left\{\ \emptyset,\ \left\{ a \right\},\ \left\{ b,c \right\},\ X\ \right\}\)</span></li>
+<li>　<span class="math inline">\(\mathcal O_{5}=\left\{\ \emptyset,\ \left\{ a \right\},\ \left\{ a,b \right\},\ X\ \right\}\)</span></li>
+<li>　<span class="math inline">\(\mathcal O_{6}=\left\{\ \emptyset,\ \left\{ a \right\},\ \left\{ b \right\},\ \left\{ a,b \right\},\ X\ \right\}\)</span></li>
+<li>　<span class="math inline">\(\mathcal O_{7}=\left\{\ \emptyset,\ \left\{ a \right\},\ \left\{ a,b \right\},\ \left\{ a,c \right\},\ X\ \right\}\)</span></li>
+<li>　<span class="math inline">\(\mathcal O_{8}=\left\{\ \emptyset,\ \left\{ a \right\},\ \left\{ b \right\},\ \left\{ a,b \right\},\ \left\{ a,c \right\},\ X\ \right\}\)</span></li>
+<li>　<span class="math inline">\(\mathcal O_{9}=\left\{\ \emptyset,\ \left\{ a \right\},\ \left\{ b \right\},\ \left\{ c \right\},\ \left\{ a,b \right\},\ \left\{ b,c \right\},\ \left\{ c,a \right\},\ X\ \right\}=2^{X}\)</span>（離散位相）</li>
+</ol>
+<p><br><br><br></p>
+</div>
+<div id="位相空間の近傍分離公理" class="section level1">
+<h1>位相空間の近傍・分離公理</h1>
+<p>この9通りの位相はそれぞれどのような性質があり、何が異なるのだろうか。 そのヒントとして、位相空間の<strong>近傍</strong>と<strong>分離</strong>の概念からそれぞれの位相を見てみよう。</p>
+<p><br></p>
+<div id="近傍の定義" class="section level2">
+<h2>近傍の定義</h2>
+<p>詳しい定義は専門書に譲るとして、簡単に言葉で説明すると、位相空間<span class="math inline">\(X\)</span>上の点<span class="math inline">\(x\)</span>において、<strong>点<span class="math inline">\(x\)</span>の近傍</strong>とは、点<span class="math inline">\(x\)</span>を含む開集合を含む集合をいう。</p>
+<p>ここでのポイントは「点<span class="math inline">\(x\)</span>を含む開集合」は1つあればいいし、近傍そのものは開集合である必要がないということである。</p>
+<p>ただ、（自分がそうであったように）言葉で説明してもわかりづらいし、数式で定義されてもその<em>お気持ち</em>はわからないと思うので、先の3元集合の例で確認してみよう。</p>
+<div id="mathcal-o_4の例" class="section level3">
+<h3><span class="math inline">\(\mathcal O_4\)</span>の例</h3>
+<p>3元しかないので、各点の近傍を列挙してみよう。</p>
+<div id="aの近傍" class="section level4">
+<h4><span class="math inline">\(a\)</span>の近傍</h4>
+<p><span class="math inline">\(a\)</span>を含む開集合は<span class="math inline">\(\{a\},\ X\)</span>の2つである。あとは<span class="math inline">\(2^X\)</span>の中から<span class="math inline">\(\{a\},\ X\)</span>のどちらか一方を含むような集合を列挙すればいい。（実際には、<span class="math inline">\(\{a\}\subset X\)</span>なので列挙する際は最も小さい集合のみ気にすれば良い。）</p>
+<div style="text-align: center;">
+<p><span class="math inline">\(a\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ a \right\},\ \left\{ a,b \right\},\ \left\{ c,a \right\},\ X\ \right\}\)</span></p>
+</div>
+</div>
+<div id="bの近傍" class="section level4">
+<h4><span class="math inline">\(b\)</span>の近傍</h4>
+<p><span class="math inline">\(b\)</span>を含む開集合は、<span class="math inline">\(a\)</span>とは異なり、<span class="math inline">\(\{b,c\},\ X\)</span>の2つである。そのため、</p>
+<div style="text-align: center;">
+<p><span class="math inline">\(b\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ b,c \right\},\ X\ \right\}\)</span></p>
+</div>
+</div>
+<div id="cの近傍" class="section level4">
+<h4><span class="math inline">\(c\)</span>の近傍</h4>
+<p><span class="math inline">\(c\)</span>を含む開集合は、<span class="math inline">\(b\)</span>と同様に、<span class="math inline">\(\{b,c\},\ X\)</span>の2つである。そのため、</p>
+<div style="text-align: center;">
+<p><span class="math inline">\(c\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ b,c \right\},\ X\ \right\}\)</span></p>
+</div>
+<p>このように、<span class="math inline">\(\mathcal O_4\)</span>では、<span class="math inline">\(b\)</span>の近傍と<span class="math inline">\(c\)</span>の近傍が一致する。これを点<span class="math inline">\(b\)</span>と点<span class="math inline">\(c\)</span>は<strong>位相的に識別できない</strong>と表現する。確かに、開集合を「距離空間における開球の一般化」と考えれば、<span class="math inline">\(b\)</span>を含む最も小さい開集合と<span class="math inline">\(c\)</span>を含む最も小さい開集合が等しい（<span class="math inline">\(\{b,c\}\)</span>）ので、「識別できない」と表現するに相応しいように思う。</p>
+</div>
+</div>
+<div id="mathcal-o_5の例" class="section level3">
+<h3><span class="math inline">\(\mathcal O_5\)</span>の例</h3>
+<p>では次に<span class="math inline">\(\mathcal O_5\)</span>の場合を見てみよう。各点を含む開集合は以下の通り。</p>
+<ul>
+<li><span class="math inline">\(a\)</span>を含む開集合は<span class="math inline">\(\{a\},\ \{a,b\},\ X\)</span>の3つ</li>
+<li><span class="math inline">\(b\)</span>を含む開集合は<span class="math inline">\(\{a,b\},\ X\)</span>の2つ</li>
+<li><span class="math inline">\(c\)</span>を含む開集合は<span class="math inline">\(X\)</span>の1つ</li>
+</ul>
+<p>これより以下の結果を得る。</p>
+<div style="text-align: center;">
+<p><span class="math inline">\(a\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ a \right\},\ \left\{ a,b \right\},\ \left\{ c,a \right\},\ X\ \right\}\)</span></p>
+<p><span class="math inline">\(b\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ a,b \right\},\ X\ \right\}\)</span></p>
+<p><span class="math inline">\(c\)</span>の近傍：<span class="math inline">\(\left\{\ X\ \right\}\)</span></p>
+</div>
+<p><span class="math inline">\(\mathcal O_5\)</span>では、<span class="math inline">\(\mathcal O_4\)</span>のようにはならず、各点がそれぞれ位相的に識別可能となった。</p>
+<p>だが、<span class="math inline">\(a\)</span>の近傍と<span class="math inline">\(b\)</span>の近傍を比べてみると、<span class="math inline">\(b\)</span>の近傍は<span class="math inline">\(a\)</span>の近傍の部分集合になっていることがわかる。これを点<span class="math inline">\(a\)</span>と点<span class="math inline">\(b\)</span>は<strong>分離されない</strong>と表現する</p>
+</div>
+<div id="mathcal-o_6の例" class="section level3">
+<h3><span class="math inline">\(\mathcal O_6\)</span>の例</h3>
+<p>各点を含む開集合は以下の通り。</p>
+<ul>
+<li><span class="math inline">\(a\)</span>を含む開集合は<span class="math inline">\(\{a\},\ \{a,b\},\ X\)</span>の3つ</li>
+<li><span class="math inline">\(b\)</span>を含む開集合は<span class="math inline">\(\{b\},\ \{a,b\},\ X\)</span>の3つ</li>
+<li><span class="math inline">\(c\)</span>を含む開集合は<span class="math inline">\(X\)</span>の1つ</li>
+</ul>
+<p>これより以下の結果を得る。</p>
+<div style="text-align: center;">
+<p><span class="math inline">\(a\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ a \right\},\ \left\{ a,b \right\},\ \left\{ c,a \right\},\ X\ \right\}\)</span></p>
+<p><span class="math inline">\(b\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ b \right\},\ \left\{ a,b \right\},\ X\ \right\}\)</span></p>
+<p><span class="math inline">\(c\)</span>の近傍：<span class="math inline">\(\left\{\ X\ \right\}\)</span></p>
+</div>
+<p>これは点<span class="math inline">\(a\)</span>と点<span class="math inline">\(b\)</span>が分離される例である。</p>
+<p>また、<strong>近傍で分離される</strong>という概念もあるようだが、3元集合では「分離される」「近傍で分離される」は同値らしいので有効な例は作れなさそうだ。（厳密にいえば、後述するが、有限集合が<span class="math inline">\(T_1\)</span>空間ならば、それは離散位相空間であり、離散位相空間ならば<span class="math inline">\(T_2\)</span>空間となってしまうようだ）</p>
+</div>
+<div id="mathcal-o_9の例" class="section level3">
+<h3><span class="math inline">\(\mathcal O_9\)</span>の例</h3>
+<p>最も細かい位相である離散位相の例を見よう。</p>
+<ul>
+<li><span class="math inline">\(a\)</span>を含む開集合は<span class="math inline">\(\{a\},\ \{a,b\},\ \{c,a\},\ X\)</span>の4つ</li>
+<li><span class="math inline">\(b\)</span>を含む開集合は<span class="math inline">\(\{b\},\ \{b,c\},\ \{a,b\},\ X\)</span>の4つ</li>
+<li><span class="math inline">\(c\)</span>を含む開集合は<span class="math inline">\(\{c\},\ \{c,a\},\ \{b,c\},\ X\)</span>の4つ</li>
+</ul>
+<p>これより以下の結果を得る。</p>
+<div style="text-align: center;">
+<p><span class="math inline">\(a\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ a \right\},\ \left\{ a,b \right\},\ \left\{ c,a \right\},\ X\ \right\}\)</span></p>
+<p><span class="math inline">\(b\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ b \right\},\ \left\{ b,c \right\},\ \left\{ a,b \right\},\ X\ \right\}\)</span></p>
+<p><span class="math inline">\(c\)</span>の近傍：<span class="math inline">\(\left\{\ \left\{ c \right\},\ \left\{ c,a \right\},\ \left\{ b,c \right\},\ X\ \right\}\)</span></p>
+</div>
+<p>見てわかる通り、離散位相のもとでは空間上の任意の2点が交わらない近傍をもつ（＝近傍で分離される）。</p>
+</div>
+<div id="mathcal-o_1の例" class="section level3">
+<h3><span class="math inline">\(\mathcal O_1\)</span>の例</h3>
+<p>最後に密着位相の例を見る。</p>
+<p>この例では、各点を含む開集合が<span class="math inline">\(X\)</span>のみであるため、近傍も<span class="math inline">\(X\)</span>しかない。そのため、密着位相は任意の2点が位相的に識別できない空間となっている。（識別できないほど’密着している’というお気持ちか）</p>
+<p><br></p>
+</div>
+</div>
+<div id="分離公理" class="section level2">
+<h2>分離公理</h2>
+<p>さて、各位相の特徴を見てきたが、ここでいくつかの定義を行う。</p>
+<p>まず、位相空間<span class="math inline">\((X,\ \mathcal O)\)</span>が<strong><span class="math inline">\(T_0\)</span>空間</strong>であるとは、<span class="math inline">\(X\)</span>内の任意の2点が位相的に識別できることをいう。</p>
+<p>次に、位相空間<span class="math inline">\((X,\ \mathcal O)\)</span>が<strong><span class="math inline">\(T_1\)</span>空間</strong>であるとは、<span class="math inline">\(X\)</span>内の任意の2点が分離できることをいう。</p>
+<p>最後に、位相空間<span class="math inline">\((X,\ \mathcal O)\)</span>が<strong><span class="math inline">\(T_2\)</span>空間</strong>であるとは、<span class="math inline">\(X\)</span>内の任意の2点が近傍で分離できることをいう。</p>
+<p>この定義に照らして、3元集合の位相を分類すると以下のようになる。</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">位相</th>
+<th align="center"><span class="math inline">\(T_0\)</span></th>
+<th align="center"><span class="math inline">\(T_1\)</span></th>
+<th align="center"><span class="math inline">\(T_2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\mathcal O_1\)</span></td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\mathcal O_2\)</span></td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\mathcal O_3\)</span></td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\mathcal O_4\)</span></td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\mathcal O_5\)</span></td>
+<td align="center">〇</td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\mathcal O_6\)</span></td>
+<td align="center">〇</td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\mathcal O_7\)</span></td>
+<td align="center">〇</td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\mathcal O_8\)</span></td>
+<td align="center">〇</td>
+<td align="center">ー</td>
+<td align="center">ー</td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\mathcal O_9\)</span></td>
+<td align="center">〇</td>
+<td align="center">〇</td>
+<td align="center">〇</td>
+</tr>
+</tbody>
+</table>
+<p>9通りの位相が3パターンに分類できた。もう少し各位相の特徴を調べられないだろうか。</p>
+<p>次は参考にしたサイトにもあるように、連結かどうかを見てみることにする。</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
